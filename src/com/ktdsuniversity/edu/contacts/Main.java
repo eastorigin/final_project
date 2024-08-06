@@ -61,6 +61,7 @@ public class Main {
 				contactBook.deletePersonInfo(index);
 			}else if(number == 9) {
 				System.out.println("수정할 사람의 인덱스와 수정할 사람의 정보를 입력해주세요");
+				
 			}else if(number == 0) {
 				System.out.println("시스템 종료");
 				break;
