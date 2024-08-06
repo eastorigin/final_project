@@ -53,5 +53,16 @@ public class PersonInfo {
 		return lastUpdate;
 	}
 	
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
+	}
 	
+	public void setLastUpdate(LocalDate lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+	
+	@Override
+	public String toString() {
+		return "이름: " + this.name + ", 나이: " + this.age + ", 생일: " + this.birthday + ", 주소: " + this.address + " 별명: " + this.nickname + "연락처: " + this.number + "이메일: " + this.eMail + "등록일: " + this.registrationDate + "마지막 수정일: " + this.lastUpdate;
+	}
 }
