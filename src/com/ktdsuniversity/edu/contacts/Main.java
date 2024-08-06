@@ -43,6 +43,24 @@ public class Main {
 				contactBook.searchNumber(input);
 			}else if(number == 3) {
 				contactBook.searchUpcomingBirthday();
+			}else if(number == 4) {
+				contactBook.searchWasBirthday();
+			}else if(number == 5) {
+				System.out.println("검색하실 주소를 입력하세요");
+				String input = keyboard.nextLine();
+				contactBook.searchAddress(input);
+			}else if(number == 6) {
+				System.out.println("등록하실 ");
+			}else if(number == 7) {
+				System.out.println("조회할 사람의 인덱스를 입력해주세요");
+				int index = keyboard.nextInt();
+				contactBook.checkPersonInfo(index);
+			}else if(number == 8) {
+				System.out.println("삭제할 사람의 인덱스를 입력해주세요");
+				int index = keyboard.nextInt();
+				contactBook.deletePersonInfo(index);
+			}else if(number == 9) {
+				System.out.println("수정할 사람의 인덱스와 수정할 사람의 정보를 입력해주세요");
 			}else if(number == 0) {
 				System.out.println("시스템 종료");
 				break;
