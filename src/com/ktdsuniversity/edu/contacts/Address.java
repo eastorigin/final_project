@@ -19,6 +19,30 @@ public class Address {
 		this.postalCode = postalCode;
 	}
 	
+	public String getCity() {
+		return city;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public String getPreviousStreet() {
+		return previousStreet;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
 	@Override
 	public String toString() {
 		return "시/군/구: " + this.city + ", 읍/면/동: " + this.district + ", 길 (도로명주소): " + this.street + ", 번지(구 주소): " + this.previousStreet + ", 동/호수 (상세주소): " + this.detail + ", 우편번호: " + this.postalCode;

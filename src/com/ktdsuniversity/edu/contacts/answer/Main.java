@@ -27,10 +27,10 @@ public class Main {
 		System.out.println("번호를 입력하세요.");
 		
 		try {
-			return this.keyboard.nextInt();
+			return this.keyboard.nextInt(); // 실행은 얘가 먼저되지만 나중에 반환된다
 		}
 		finally {
-			this.keyboard.nextLine();
+			this.keyboard.nextLine(); // 이게 먼저 번환된 후에
 		}
 	}
 	
@@ -62,7 +62,13 @@ public class Main {
 		if (selectedMenu == 1) {
 			System.out.println("새로운 사람을 추가합니다.");
 			PersonInfo newPersonInfo = this.inputNewPersonInfo();
-			this.contactBook.addNewPersonInfo(newPersonInfo);
+			
+			try {
+				this.contactBook.addNewPersonInfo(newPersonInfo);
+			}
+			catch(IllegalArgumentException iae) {
+				System.out.println(iae.getMessage());
+			}
 		}
 	}
 	

@@ -13,6 +13,7 @@ public class PersonInfo {
 	private String eMail;
 	private LocalDate registrationDate;
 	private LocalDate lastUpdate;
+	
 	public PersonInfo(String name, int age, LocalDate birthday, Address address, String nickname, String number,
 			String eMail, LocalDate registrationDate, LocalDate lastUpdate) {
 		this.name = name;

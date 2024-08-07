@@ -1,7 +1,11 @@
 package com.ktdsuniversity.edu.contacts;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.MonthDay;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +15,7 @@ public class ContactBook {
 
 	public ContactBook(List<PersonInfo> personInfoList) {
 		this.personInfoList = personInfoList;
+		read();
 	}
 	
 	public void searchNameNickname (String searchWord) {
@@ -99,6 +104,7 @@ public class ContactBook {
 			return;
 		}
 		personInfoList.add(personInfo);
+		save();
 	}
 	
 	public void checkPersonInfo (int index) {
@@ -119,6 +125,8 @@ public class ContactBook {
 			if(answer.equals("네")) {
 				personInfoList.remove(index);
 				System.out.println("삭제되었습니다");
+				
+				save();
 			}else {
 				System.out.println("삭제가 취소되었습니다");
 			}
@@ -139,11 +147,69 @@ public class ContactBook {
 				newPersonInfo.setLastUpdate(LocalDate.now());
 				personInfoList.set(index, newPersonInfo);
 				System.out.println("수정되었습니다");
+				
+				save();
 			}else {
 				System.out.println("수정이 취소되었습니다");
 			}
 		}else {
 			System.out.println("등록된 정보가 없습니다");
+		}
+	}
+	
+	public void save() {
+		List<String> fileLines = new ArrayList<>();
+		
+		for (PersonInfo personInfo : this.personInfoList) {
+			String format = "%s|%d|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s";
+			String line = String.format(format, personInfo.getName(), personInfo.getAge(), personInfo.getBirthday(), personInfo.getAddress().getCity(), personInfo.getAddress().getDistrict(), personInfo.getAddress().getStreet(), personInfo.getAddress().getPreviousStreet(), personInfo.getAddress().getDetail(), personInfo.getAddress().getPostalCode(), personInfo.getNickname(), personInfo.getNumber(), personInfo.geteMail(), personInfo.getRegistrationDate(), personInfo.getLastUpdate());
+			
+			fileLines.add(line);
+		}
+		
+		File file = new File("C:\\contacts", "contacts.txt");
+		
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+		
+		try {
+			Files.write(file.toPath(), fileLines);
+		}catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
+			System.out.println("저장할 수 없습니다");
+		}
+	}
+	
+	public void read() {
+		File file = new File("C:\\contacts", "contacts.txt");
+		
+		if (!file.getParentFile().exists()) {
+			return;
+		}
+		
+		if (!file.exists()) {
+			return;
+		}
+		
+		List<String> fileLines = null;
+		try {
+			fileLines = Files.readAllLines(file.toPath());			
+		}catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
+			return;
+		}
+		
+		for (String line : fileLines) {
+			String[] splittedLine = line.split("\\|");
+			
+			Address address = new Address (splittedLine[3], splittedLine[4], splittedLine[5], splittedLine[6], splittedLine[7], splittedLine[8]);
+			LocalDate registrationDate = LocalDate.parse(splittedLine[12]);
+			LocalDate lastUpdate = (splittedLine.length > 13 && splittedLine[13] != null && !splittedLine[13].equals("")) ? LocalDate.parse(splittedLine[13]) : null;
+			
+			PersonInfo personInfo = new PersonInfo (splittedLine[0], Integer.parseInt(splittedLine[1]), LocalDate.parse(splittedLine[2]), address, splittedLine[9], splittedLine[10], splittedLine[11], registrationDate, lastUpdate);
+			
+			this.personInfoList.add(personInfo);
 		}
 	}
 }
